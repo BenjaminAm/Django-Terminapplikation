@@ -1,0 +1,19 @@
+% Encoding: UTF-8
+
+@MastersThesis{Erdogan,
+  author = {G. Erdogan},
+  school = {Norwegian University of Science and Technology},
+  title  = {Security Testing of Web Based Applications},
+  year   = {2009},
+  file   = {:A\:/Info/Bachelor Arbeit/Quellen/Security Testing of Web Based Applications.pdf:PDF},
+}
+
+@Misc{OWASP,
+  howpublished = {Online},
+  note         = {Letzter Zugriff: 31.10.2020},
+  title        = {The OWASP Top Ten Project},
+  year         = {2017},
+  url          = {https://owasp.org/www-project-top-ten/2017/},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

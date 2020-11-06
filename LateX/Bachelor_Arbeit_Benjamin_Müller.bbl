@@ -1,0 +1,47 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{mda}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=ad5ed73c05c867e917fe9d39899914fd}{%
+           family={Poole},
+           familyi={P\bibinitperiod},
+           given={John\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{ad5ed73c05c867e917fe9d39899914fd}
+      \strng{fullhash}{ad5ed73c05c867e917fe9d39899914fd}
+      \strng{bibnamehash}{ad5ed73c05c867e917fe9d39899914fd}
+      \strng{authorbibnamehash}{ad5ed73c05c867e917fe9d39899914fd}
+      \strng{authornamehash}{ad5ed73c05c867e917fe9d39899914fd}
+      \strng{authorfullhash}{ad5ed73c05c867e917fe9d39899914fd}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{In ECOOP 2001, Workshop on Metamodeling and Adaptive Object Models}
+      \field{title}{Model-Driven Architecture: vision, standards and emerging technologies}
+      \field{year}{2001}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -1,0 +1,159 @@
+\documentclass[a4paper,12pt,oneside, bibliography=totoc]
+{scrbook}
+\usepackage[utf8]{inputenc}
+
+% Schrift und -kodierung
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Sprache/Silbentrennung
+\usepackage[german]{babel} 
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{floatflt}
+\usepackage{float} 
+\usepackage{graphicx}
+\usepackage{pbox}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{siunitx}
+
+
+\usepackage[page, title, titletoc, header]{appendix} %prettier appendix
+
+
+
+\usepackage[printonlyused]{acronym}
+\usepackage{csquotes}
+\usepackage{listings} 
+\usepackage{subfig}
+\lstset{xleftmargin=2em} %Proper indention of listings
+
+
+\usepackage{tabularx} %For tables
+\usepackage{csquotes} %For Quotes
+
+
+
+
+
+%Footnote Numbering not reset in new chapters
+\usepackage{chngcntr}
+\counterwithout{footnote}{chapter}
+
+
+%Remove last point after section/subsections
+\renewcommand{\autodot}{}
+
+\usepackage[htt]{hyphenat} %damit texttt noch Linebreaks mit Silbentrennung erzeugt
+\newcommand{\code}[1]{\texttt{#1}} %Programmcode im Textfluss in passendem Font ausgeben
+
+
+
+
+   
+%Literatur
+%Ordering in references checken, vermutlich was mit style=numeric zu tun
+\usepackage[
+   backend=biber,
+   sorting= none,
+   firstinits=true,
+   date=long,
+   urldate=long
+]{biblatex}
+\addbibresource{literatur1.bib}
+\addbibresource{literatur2.bib}
+
+
+\usepackage[]{hyperref}
+
+\begin{document}
+\frontmatter %roman page numbers
+
+
+
+
+
+	\titlehead{
+	\begin{center}
+	   \includegraphics[width=10cm]{figures/unilogo.pdf}\\
+	   	Institut für Informatik, AG Software Engineering
+	\end{center}
+	}
+	\subject{Bachelorarbeit}
+	\title{Entwicklung eines Schwachstellenscanners  für Python Webapplikationen}
+	\author{Benjamin Müller \\ Immatrikulationsnummer: 962010} 
+
+	\date{30.11.2020 \\
+	Erstbetreuerin: Prof. Dr.-Ing. Elke Pulvermüller \\
+	Zweitbetreuer: } 
+	
+	\maketitle
+	
+	\clearpage
+	
+	\input{Misc/Abstract}
+
+
+	\clearpage
+	
+	\tableofcontents
+	\clearpage
+
+	
+
+
+
+
+
+
+\mainmatter %switch roman auf arabic page numbers
+\chapter{Einleitung}
+\setcounter{page}{1} %Seitenzahlen hier mit 1 anfangen
+
+	%Include text from other files into the document --> great for structuring
+	%\input{Introduction/introduction}
+Während dem Prozess der Softwareentwicklung nimmt die Software Sicherheit eine zunehmend wichtige Rolle ein. Unter ständig zunehmenden und sich diversifizierenden Cyberangriffen stehen Softwarehersteller vor der Herausforderung ihre Produkte gegen eine Vielzahl von Bedrohungen abzusichern und Hackern keine Angriffsflächen zu bieten. Dabei spielt die Vermeidung von Software Schwachstellen eine wichtige Rolle, da diese Einfallstore für böswillige Akteure darstellen. Insbesondere für Web Applikationen ist dies von hoher Priorität, da sie keine schützende Wand aus physischer und Netzwerksicherheit zwischen sich und der Außenwelt haben, sondern für jeden über HTTP Requests zugänglich sind.
+
+Vielen Entwicklern fehlt detailliertes Wissen über Schwachstellen und ihre Vermeidung. Auch die Verwendung eines etablierten Web Frameworks schützt nur dann vor Schwachstellen, wenn der Entwickler es richtig einsetzt. Um dieses Problem zu bewältigen, bietet sich ein Schwachstellenscanner an, der den Quellcode überprüft und bei gefundenen Schwachstellen\footnote{Die Begriffe Schwachstelle und Sicherheitslücke werden in dieser Arbeit synonym benutzt. }  Lösungen vorshlägt. Der Konzeptionierung und Implementierung eins solchen Scanners widmet sich diese Arbeit. 
+
+	
+	\section{Anforderungen an den Scanner}
+	\section{Methodik der Arbeit}
+Im ersten Kapitel des Hauptteils werden bestimmte Schwachstellen nach ihrer Häufigkeit und ihrem Schweregrad\footnote{Mit Schweregrad ist hier der Grad der Ausnutzbarkeit und die technischen Folgen einer Sicherheitslücke gemeint}  ausgewählt
+	\section{Relevante Arbeiten}
+
+
+
+\chapter{Häufige Sicherheitslücken in Web Applikationen}
+	
+	\section{Injection}
+	
+	\section{Cross-Site Scripting}
+
+	\section{Broken Authentification}
+
+\chapter{Beschreibung der CRUD App}
+
+	\section{Schwachstellen}
+
+	
+\chapter{Konzeption eines}
+\chapter{Methodik des Scanners im Finden von Schwachstellen}
+
+\chapter{Bewertung der Bibliothek}
+
+\chapter{Zusammenfassung}
+
+
+
+%Prints references
+\printbibliography
+
+
+\clearpage 
+
+
+\input{Misc/Testimony}
+\end{document}
+
