@@ -19,6 +19,7 @@ from termin_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', views.homeView()),
-    path('index/', views.homeView()),
+    path('login/', views.loginView),
+    path('index/', views.homeView),
+    path('', views.homeView),
 ]
