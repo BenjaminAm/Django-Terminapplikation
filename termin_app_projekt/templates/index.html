@@ -7,9 +7,17 @@
 
 {% block content %}
     <div class="clearfix">
-        <a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"> Vorheriger Monat </a>
-        <a class="btn btn-info center" href="{% url 'appointment_new' %}"> Neuer Termin </a>
-        <a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"> Nächster Monat </a>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"> Vorheriger Monat </a>
+            </div>
+            <div class="col">
+                <a class="btn btn-info center" href="{% url 'appointment_new' %}"> Neuer Termin </a>
+            </div>
+            <div class="col">
+                <a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"> Nächster Monat </a>
+            </div>
+        </div>
     </div>
 
     {{ calendar }}

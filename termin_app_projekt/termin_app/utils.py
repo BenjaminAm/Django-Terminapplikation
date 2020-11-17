@@ -1,14 +1,14 @@
-from calendar import HTMLCalendar
+from calendar import LocaleHTMLCalendar
 from .models import Appointment
 from json import dumps
 
 
-class Calendar(HTMLCalendar):
+class Calendar(LocaleHTMLCalendar):
 
     def __init__(self, year=None, month=None):
         self.year = year
         self.month = month
-        super(Calendar, self).__init__()
+        super(Calendar, self).__init__(locale="de_DE")
 
     def formatday(self, day, appointments):
         appointments_per_day = appointments.filter(start_time__day=day)

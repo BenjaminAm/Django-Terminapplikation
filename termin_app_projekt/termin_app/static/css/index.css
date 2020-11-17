@@ -45,6 +45,12 @@ a {
   float: right;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .btn {
   outline: none;
   color: black;
