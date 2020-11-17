@@ -1,4 +1,17 @@
 {% extends 'base.html' %}
 
+{% block css %}
+{% load static %}
+    <link rel="stylesheet" href="{% static "/css/index.css" %}" type="text/css">
+{% endblock %}
+
 {% block content %}
+    <div class="clearfix">
+        <a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"> Vorheriger Monat </a>
+        <a class="btn btn-info center" href="{% url 'appointment_new' %}"> Neuer Termin </a>
+        <a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"> Nächster Monat </a>
+    </div>
+
+    {{ calendar }}
+
 {% endblock %}
