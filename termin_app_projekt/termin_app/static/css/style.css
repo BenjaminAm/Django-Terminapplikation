@@ -1,3 +1,14 @@
+.btn {
+  outline: none;
+  color: black;
+  background-color: transparent;
+  box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+  margin: 15px;
+}
+
 .calendar {
   width: 98%;
   margin: auto;
@@ -51,17 +62,6 @@ a {
   align-items: center;
 }
 
-.btn {
-  outline: none;
-  color: black;
-  background-color: transparent;
-  box-shadow: 0 0 0 0;
-}
-
-.clearfix {
-  margin: 15px;
-}
-
 .col-8 {
   max-width: 80%;
   flex-basis: 80%;
@@ -93,4 +93,48 @@ a {
 /* Show the tooltip text when you mouse over the tooltip container */
 .customtooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.back {
+  background: #e2e2e2;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.div-center {
+  width: 400px;
+  height: 400px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding: 1em 2em;
+  border-bottom: 2px solid #ccc;
+  display: table;
+}
+
+div.content {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.form {
+  margin: auto;
+}
+
+.form input, .form select, .form textarea {
+  border-radius: 5px;
+  border: 1px solid #17a2b8;
+  outline: none;
+  background: none;
+  padding: 5px;
+  width: 100%;
 }

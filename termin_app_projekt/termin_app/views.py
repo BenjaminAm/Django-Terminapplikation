@@ -5,10 +5,13 @@ from django.views import generic
 from datetime import date, timedelta
 from .forms import LoginForm, AppointmentForm
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .utils import Calendar
 from calendar import monthrange
 from django.utils.safestring import mark_safe
+from django.contrib.auth import authenticate, login, logout
+
 
 
 @require_http_methods(["GET", "POST"])
@@ -18,9 +21,17 @@ def loginView(request):
         login_data = LoginForm()
         return render(request, "login.html", {'form': login_data})
     elif request.method == "POST":
-        form = LoginForm(request.POST)
-        # LDAP validation
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        login(request, user)
         return redirect("/")
+
+
+def logoutView(request):
+    logout(request)
+    # Redirect to a success page.
+    return redirect("/")
 
 
 class CalendarView(generic.ListView):
@@ -68,6 +79,7 @@ def next_month(d):
     return month
 
 
+@login_required
 def appointment(request, appointment_id=None):
     instance = Appointment()
     if appointment_id:

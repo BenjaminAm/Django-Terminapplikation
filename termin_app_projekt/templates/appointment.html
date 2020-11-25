@@ -4,11 +4,6 @@
 Appointment
 {% endblock %}
 
-{% block css %}
-{% load static %}
-    <link rel="stylesheet" href="{% static "/css/appointment.css" %}" type="text/css">
-{% endblock %}
-
 {% block content %}
 <div class="clearfix">
   <a class="btn btn-info left" href="{% url 'calendar' %}"> Kalender </a>
@@ -18,7 +13,7 @@ Appointment
   {% csrf_token %}
   <table class="form form-table">
     {{ form }}
-    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Enter </button></td></tr>
+    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Speichern </button></td></tr>
   </table>
 </form>
 {% endblock %}

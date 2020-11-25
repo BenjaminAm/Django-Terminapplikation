@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import ldap
+from django_auth_ldap.config import LDAPSearch, ActiveDirectoryGroupType
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -25,8 +27,7 @@ SECRET_KEY = 'q4gq%h@g!6q(##&y53t4l+ht=gxvmv7x-(xd8ezlsqji54gswy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["server_domain_or_IP", "127.0.0.1", "127.0.1.1"]
 
 # Application definition
 
@@ -72,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'termin_app_projekt.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -82,7 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -102,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -116,11 +114,39 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# LDAP Configuration
+AUTH_LDAP_SERVER_URI = 'ldap://ldap.uos.de:636'
+AUTH_LDAP_BIND_DN = "" # perform anonymous bind
+AUTH_LDAP_BIND_PASSWORD = ""
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    "ou=people,dc=uni-osnabrueck,dc=de", ldap.SCOPE_SUBTREE, "uid=%(user)s"
+)
+
+AUTH_LDAP_USER_ATTR_MAP = {
+    "username": "sAMAccountName",
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail",
+}
+
+AUTHENTICATION_BACKENDS = [
+    # uncomment the following line for using LDAP
+    # 'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
+
+LOGIN_URL = "/login/"

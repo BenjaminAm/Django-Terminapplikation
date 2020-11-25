@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from termin_app import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', views.loginView),
-    path('', views.CalendarView.as_view(), name="calendar"),
+    path('admin/', admin.site.urls, name="admin"),
+    path('login/', views.loginView, name="login"),
+    path('logout/', views.logoutView, name="logout"),
+    path('', login_required(views.CalendarView.as_view()), name="calendar"),
     url(r'^appointment/new/$', views.appointment, name='appointment_new'),
     url(r'^appointment/edit/(?P<appointment_id>\d+)/$', views.appointment, name='appointment_edit'),
 ]
