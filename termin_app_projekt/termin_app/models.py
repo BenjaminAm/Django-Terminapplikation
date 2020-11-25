@@ -1,14 +1,27 @@
 from django.db import models
 from datetime import datetime
-
 from django.urls import reverse
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 
-"""This class models the appointment object"""
+
+class CustomUser(AbstractUser):
+    """
+    Custom user model as recommended by django docs if customization of the user model is needed later.
+    """
+    pass
+
+
 class Appointment(models.Model):
-    title = models.CharField("Titel", max_length=50, help_text="Titel des Termins", null=True)
+    """
+    This class models the appointment object
+    """
+    title = models.CharField("Titel", max_length=50, help_text="Titel des Termins", default='Neuer Termin', null=False)
     start_time = models.DateTimeField('Beginn', help_text='Beginn des Termins', default=datetime.now())
     end_time = models.DateTimeField('Ende', help_text='Ende des Termins', default=datetime.now())
     comment = models.CharField("Kommentar", max_length=256, help_text="Freies Kommentar. Gib hier alles ein, was zu diesem Termin wichtig ist.", null=True)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    private = models.BooleanField("Privat", default=True, help_text="Private Termine kannst nur du sehen, andere Termine sehen alle Nutzer.")
 
     class Meta:
         verbose_name = 'Termin'
@@ -21,3 +34,5 @@ class Appointment(models.Model):
     def get_html_url(self):
         url = reverse('appointment_edit', args=(self.id,))
         return f'<a href="{url}"> {self.title} </a>'
+
+

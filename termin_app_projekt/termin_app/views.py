@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
 from django.views import generic
 from datetime import date, timedelta
 from .forms import LoginForm, AppointmentForm
@@ -19,6 +18,8 @@ def loginView(request):
         return render(request, "login.html", {'form': login_data})
     elif request.method == "POST":
         form = LoginForm(request.POST)
+        email = form["email"]
+        password = form["password"]
         # LDAP validation
         return redirect("/")
 
@@ -73,7 +74,7 @@ def appointment(request, appointment_id=None):
     if appointment_id:
         instance = get_object_or_404(Appointment, pk=appointment_id)
     else:
-        instance = Appointment()
+        instance = Appointment(owner=request.user)
 
     form = AppointmentForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
