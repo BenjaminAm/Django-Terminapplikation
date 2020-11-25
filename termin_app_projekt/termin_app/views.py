@@ -5,7 +5,6 @@ from django.views import generic
 from datetime import date, timedelta
 from .forms import LoginForm, AppointmentForm
 from django.views.decorators.http import require_http_methods
-from django.contrib.auth.decorators import login_required
 from .models import *
 from .utils import Calendar
 from calendar import monthrange
@@ -79,13 +78,12 @@ def next_month(d):
     return month
 
 
-@login_required
 def appointment(request, appointment_id=None):
     instance = Appointment()
     if appointment_id:
         instance = get_object_or_404(Appointment, pk=appointment_id)
     else:
-        instance = Appointment()
+        instance = Appointment(owner=request.user)
 
     form = AppointmentForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():

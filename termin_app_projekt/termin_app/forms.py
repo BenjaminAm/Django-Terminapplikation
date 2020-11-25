@@ -1,4 +1,4 @@
-from django.forms import Form, ModelForm, SplitDateTimeWidget, CharField, PasswordInput
+from django.forms import Form, ModelForm, SplitDateTimeWidget, CharField, PasswordInput, CheckboxInput
 from .models import Appointment
 
 
@@ -16,8 +16,12 @@ class AppointmentForm(ModelForm):
                                               date_attrs={'type': 'datetime-local'}, date_format='%d.%m.%y%y'),
             'end_time': SplitDateTimeWidget(time_attrs={'type': 'datetime-local'}, time_format='%H:%M',
                                             date_attrs={'type': 'datetime-local'}, date_format='%d.%m.%y%y'),
+            'private': CheckboxInput(),
         }
-        fields = '__all__'
+        fields = ['title', 'start_time', 'end_time', 'comment', 'private']
 
     def __init__(self, *args, **kwargs):
         super(AppointmentForm, self).__init__(*args, **kwargs)
+        # input_formats to parse HTML5 datetime-local input to datetime field
+        #self.fields['start_time'].input_formats = ('%d-%m-%Y %H:%M',)
+        #self.fields['end_time'].input_formats = ('%d-%m-%Y %H:%M',)

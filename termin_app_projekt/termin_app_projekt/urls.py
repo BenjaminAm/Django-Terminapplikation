@@ -25,6 +25,6 @@ urlpatterns = [
     path('login/', views.loginView, name="login"),
     path('logout/', views.logoutView, name="logout"),
     path('', login_required(views.CalendarView.as_view()), name="calendar"),
-    url(r'^appointment/new/$', views.appointment, name='appointment_new'),
-    url(r'^appointment/edit/(?P<appointment_id>\d+)/$', views.appointment, name='appointment_edit'),
+    url(r'^appointment/new/$', login_required(views.appointment), name='appointment_new'),
+    url(r'^appointment/edit/(?P<appointment_id>\d+)/$', login_required(views.appointment), name='appointment_edit'),
 ]
