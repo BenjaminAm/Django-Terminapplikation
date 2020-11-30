@@ -8,10 +8,10 @@ class Calendar(LocaleHTMLCalendar):
     def __init__(self, year=None, month=None):
         self.year = year
         self.month = month
-        super(Calendar, self).__init__(locale="de_DE")
+        super(Calendar, self).__init__(locale="german")
 
     def formatday(self, day, appointments):
-        appointments_per_day = appointments.filter(start_time__day=day)
+        appointments_per_day = appointments.filter(date__day=day)
         d = ''
         for appointment in appointments_per_day:
             html = f"<li class='appointment_link customtooltip'> {appointment.get_html_url}"\
@@ -29,8 +29,10 @@ class Calendar(LocaleHTMLCalendar):
             week += self.formatday(d, appointments)
         return f'<tr> {week} </tr>'
 
-    def formatmonth(self, withyear=True):
-        appointments = Appointment.objects.filter(start_time__year=self.year, start_time__month=self.month)
+    def formatmonth(self, withyear=True, currentuser=None):
+        appointments = Appointment.objects.filter(date__year=self.year, date__month=self.month, private=False) |\
+                       Appointment.objects.filter(date__year=self.year, date__month=self.month, private=True,
+                                                  owner=currentuser)
         calendar = f'<table border="0" cellpadding="0" cellspacing="0"     class="calendar">\n'
         calendar += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
         calendar += f'{self.formatweekheader()}\n'

@@ -23,7 +23,8 @@ def loginView(request):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(username=username, password=password)
-        login(request, user)
+        if user is not None and user.is_authenticated:
+            login(request, user)
         return redirect("/")
 
 
@@ -48,7 +49,7 @@ class CalendarView(generic.ListView):
         cal = Calendar(d.year, d.month)
 
         # Call the formatmonth method, which returns our calendar as a table
-        html_cal = cal.formatmonth(withyear=True)
+        html_cal = cal.formatmonth(withyear=True, currentuser=self.request.user)
         context['calendar'] = mark_safe(html_cal)
 
         context['prev_month'] = prev_month(d)

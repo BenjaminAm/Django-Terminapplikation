@@ -11,9 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-import ldap
-from django_auth_ldap.config import LDAPSearch, ActiveDirectoryGroupType
-
+# import ldap
+# from django_auth_ldap.config import LDAPSearch, ActiveDirectoryGroupType
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -112,6 +111,10 @@ LANGUAGE_CODE = 'de-DE'
 
 TIME_ZONE = 'UTC'
 
+TIME_INPUT_FORMATS = ['%H:%M']
+
+DATE_INPUT_FORMATS = ['%d.%m.%Y']
+
 USE_I18N = True
 
 USE_L10N = True
@@ -130,20 +133,20 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_USER_MODEL = "termin_app.CustomUser"
 
 
-# LDAP Configuration
-AUTH_LDAP_SERVER_URI = 'ldap://ldap.uos.de:636'
-AUTH_LDAP_BIND_DN = "" # perform anonymous bind
-AUTH_LDAP_BIND_PASSWORD = ""
-AUTH_LDAP_USER_SEARCH = LDAPSearch(
-    "ou=people,dc=uni-osnabrueck,dc=de", ldap.SCOPE_SUBTREE, "uid=%(user)s"
-)
-
-AUTH_LDAP_USER_ATTR_MAP = {
-    "username": "sAMAccountName",
-    "first_name": "givenName",
-    "last_name": "sn",
-    "email": "mail",
-}
+# # LDAP Configuration
+# AUTH_LDAP_SERVER_URI = 'ldap://ldap.uos.de:636'
+# AUTH_LDAP_BIND_DN = "" # perform anonymous bind
+# AUTH_LDAP_BIND_PASSWORD = ""
+# AUTH_LDAP_USER_SEARCH = LDAPSearch(
+#     "ou=people,dc=uni-osnabrueck,dc=de", ldap.SCOPE_SUBTREE, "uid=%(user)s"
+# )
+#
+# AUTH_LDAP_USER_ATTR_MAP = {
+#     "username": "sAMAccountName",
+#     "first_name": "givenName",
+#     "last_name": "sn",
+#     "email": "mail",
+# }
 
 AUTHENTICATION_BACKENDS = [
     # uncomment the following line for using LDAP
