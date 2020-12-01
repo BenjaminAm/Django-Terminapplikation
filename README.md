@@ -6,14 +6,14 @@ To set up and start the project follow these steps:
 - run one of these commands to activate the python virtual environment depending on your OS and shell:
 
 ## POSIX:
-- bash/zsh:          $ source termin_app_project/venv/bin/activate
-- fish:              $ source termin_app_project/venv/bin/activate.fish
-- csh/tcsh:          $ source termin_app_project/venv/bin/activate.csh
-- PowerShell Core:   $ termin_app_project/venv/bin/Activate.ps1
+- bash/zsh:          $ source termin_app_projekt/venv/bin/activate
+- fish:              $ source termin_app_projekt/venv/bin/activate.fish
+- csh/tcsh:          $ source termin_app_projekt/venv/bin/activate.csh
+- PowerShell Core:   $ termin_app_projekt/venv/bin/Activate.ps1
 
 ## Windows:
-- cmd.exe:           C:\> termin_app_project\venv\Scripts\activate.bat
-- PowerShell:        PS C:\> termin_app_project\venv\Scripts\Activate.ps1
+- cmd.exe:           C:\> termin_app_projekt\venv\Scripts\activate.bat
+- PowerShell:        PS C:\> termin_app_projekt\venv\Scripts\Activate.ps1
         
 Continue with these commands:    
 - run "python manage.py makemigrations" and "python manage.py migrate" to create the database.
