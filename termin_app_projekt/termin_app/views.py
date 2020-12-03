@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.views import generic
 from datetime import date, timedelta
 from .forms import LoginForm, AppointmentForm
@@ -10,7 +10,6 @@ from .utils import Calendar
 from calendar import monthrange
 from django.utils.safestring import mark_safe
 from django.contrib.auth import authenticate, login, logout
-
 
 
 @require_http_methods(["GET", "POST"])
@@ -25,7 +24,10 @@ def loginView(request):
         user = authenticate(username=username, password=password)
         if user is not None and user.is_authenticated:
             login(request, user)
-        return redirect("/")
+            return redirect("/")
+        else:
+            messages.error(request, 'username or password not correct')
+            return redirect('login')
 
 
 def logoutView(request):

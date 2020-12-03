@@ -17,6 +17,11 @@
               {{ form|crispy }}
             <button type="submit" class="btn btn-primary">Login</button>
           </form>
+            {% for message in messages %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+            {% endfor %}
         </div>
       </div>
     </div>
