@@ -1,6 +1,7 @@
 from calendar import LocaleHTMLCalendar
 from .models import Appointment
-from json import dumps
+from django.conf import settings
+import locale
 
 
 class Calendar(LocaleHTMLCalendar):
@@ -8,7 +9,8 @@ class Calendar(LocaleHTMLCalendar):
     def __init__(self, year=None, month=None):
         self.year = year
         self.month = month
-        super(Calendar, self).__init__(locale="german")
+        super(Calendar, self).__init__(locale=settings.LANGUAGE_CODE)
+
 
     def formatday(self, day, appointments):
         appointments_per_day = appointments.filter(date__day=day)
@@ -39,7 +41,10 @@ class Calendar(LocaleHTMLCalendar):
                        Appointment.objects.filter(date__year=self.year, date__month=self.month, private=True,
                                                   owner=currentuser)
         calendar = f'<table border="0" cellpadding="0" cellspacing="0"     class="calendar">\n'
-        calendar += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
+        try:
+            calendar += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
+        except locale.Error:
+            self.locale = ("de-de")
         calendar += f'{self.formatweekheader()}\n'
         for week in self.monthdays2calendar(self.year, self.month):
             calendar += f'{self.formatweek(week, appointments)}\n'

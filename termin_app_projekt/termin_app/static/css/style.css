@@ -98,7 +98,7 @@ a {
 .back {
   background: #e2e2e2;
   width: 100%;
-  position: absolute;
+  position: relative;
   top: 0;
   bottom: 0;
 }

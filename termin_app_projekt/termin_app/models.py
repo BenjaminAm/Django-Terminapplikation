@@ -29,7 +29,7 @@ class Appointment(models.Model):
         verbose_name_plural = 'Termine'
 
     def __str__(self):
-        return str.format('%s %s-%s Uhr', self.day, self.start_time, self.end_time)
+        return '{0} {1}-{2} Uhr'.format(self.date, self.start_time, self.end_time)
 
     @property
     def get_html_url(self):
