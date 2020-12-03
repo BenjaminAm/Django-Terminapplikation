@@ -14,8 +14,10 @@ To set up and start the project follow these steps:
 ## Windows:
 - cmd.exe:           C:\> termin_app_projekt\venv\Scripts\activate.bat
 - PowerShell:        PS C:\> termin_app_projekt\venv\Scripts\Activate.ps1
-        
-Continue with these commands:    
+ 
+If for some reason you cant activate the environment use "pip install -r requirements.txt" (use pip3 if you also have python2 installed) to install the requirements to your local python create a new virtual env from the requirements.txt using virtualenv.
+
+Continue with these commands (use python3 if you also have python2 installed):    
 - run "python manage.py makemigrations" and "python manage.py migrate" to create the database.
 - run "python manage.py createsuperuser" to create an admin user.
 - run "python manage.py runserver" to run the app with the django dev server.
