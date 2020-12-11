@@ -13,7 +13,7 @@ class AppointmentForm(ModelForm):
     class Meta:
         model = Appointment
         widgets = {
-            'date': DateInput(attrs={'type': 'date'}),
+            'date': DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
             'start_time': TimeInput(attrs={'type': 'time'}),
             'end_time': TimeInput(attrs={'type': 'time'}),
             'private': CheckboxInput(),

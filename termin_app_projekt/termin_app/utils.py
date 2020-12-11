@@ -16,14 +16,14 @@ class Calendar(LocaleHTMLCalendar):
         appointments_per_day = appointments.filter(date__day=day)
         d = ''
         for appointment in appointments_per_day:
-            sichtbarkeit = "Öffentlich"
+            visibility = "Öffentlich"
             if appointment.private:
-                sichtbarkeit = "Privat"
+                visibility = "Privat"
             html = f"<li class='appointment_link customtooltip'> {appointment.get_html_url}"\
                    + f"<span class='tooltiptext'>Startzeit: {appointment.start_time.strftime('%H:%M')}<br>" \
                      f"Endzeit: {appointment.end_time.strftime('%H:%M')}<br>" \
                      f"Kommentar: {appointment.comment}<br>" \
-                     f"Sichtbarkeit: {sichtbarkeit}</span>" + "</li>"
+                     f"Sichtbarkeit: {visibility}</span>" + "</li>"
 
             d += html
         if day != 0:

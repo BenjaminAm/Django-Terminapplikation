@@ -82,14 +82,21 @@ def next_month(d):
 
 
 def appointment(request, appointment_id=None):
-    instance = Appointment()
     if appointment_id:
+        # if user edits a form
         instance = get_object_or_404(Appointment, pk=appointment_id)
     else:
+        # if user creates a new form
         instance = Appointment(owner=request.user)
-
     form = AppointmentForm(request.POST or None, instance=instance)
-    if request.POST and form.is_valid():
+    # if user saves the form
+    if request.POST and 'save' in request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('calendar'))
+    # if user presses the delete button
+    if request.POST and 'delete' in request.POST:
+        if appointment_id:
+            Appointment.objects.filter(pk=appointment_id).delete()
+            return HttpResponseRedirect(reverse('calendar'))
+
     return render(request, 'appointment.html', {'form': form})
