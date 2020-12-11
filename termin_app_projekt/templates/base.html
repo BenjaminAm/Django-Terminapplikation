@@ -26,6 +26,7 @@
             {% if user.is_authenticated %}
               <div class="clearfix">
                 <a class="btn btn-info left" href="{% url 'logout' %}"> Abmelden </a>
+                <span class="right">Eingeloggt als {{ user.username }}</span>
               </div>
             {% endif %}
           {% block content %}
