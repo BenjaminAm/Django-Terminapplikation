@@ -14,7 +14,7 @@ from django.contrib.auth import authenticate, login, logout
 
 @require_http_methods(["GET", "POST"])
 def loginView(request):
-    """Login view for LDAP sign in"""
+    """Login view for StudIP sign in"""
     if request.method == "GET":
         login_data = LoginForm()
         return render(request, "login.html", {'form': login_data})
