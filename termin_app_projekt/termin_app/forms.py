@@ -1,7 +1,5 @@
 from django.forms import Form, ModelForm, TimeInput, DateInput, CharField, PasswordInput, CheckboxInput
 from .models import Appointment
-from datetime import datetime
-
 
 
 class LoginForm(Form):

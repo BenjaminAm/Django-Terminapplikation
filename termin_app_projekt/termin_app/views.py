@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.utils.html import format_html, escape
 from django.views import generic
 from datetime import date, timedelta
 from .forms import LoginForm, AppointmentForm
@@ -52,7 +53,7 @@ class CalendarView(generic.ListView):
 
         # Call the formatmonth method, which returns our calendar as a table
         html_cal = cal.formatmonth(withyear=True, currentuser=self.request.user)
-        context['calendar'] = mark_safe(html_cal)
+        context['calendar'] = format_html(html_cal)
 
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
@@ -91,7 +92,8 @@ def appointment(request, appointment_id=None):
     form = AppointmentForm(request.POST or None, instance=instance)
     # if user saves the form
     if request.POST and 'save' in request.POST and form.is_valid():
-        form.save()
+        if request.user == instance.owner:
+            form.save()
         return HttpResponseRedirect(reverse('calendar'))
     # if user presses the delete button
     if request.POST and 'delete' in request.POST:
