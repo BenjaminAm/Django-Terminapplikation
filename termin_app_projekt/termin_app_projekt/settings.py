@@ -29,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["server_domain_or_IP", "127.0.0.1", "127.0.1.1"]
 
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'termin_app.apps.TerminAppConfig',
     'crispy_forms',
 ]
+
 
 
 MIDDLEWARE = [
