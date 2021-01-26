@@ -3,6 +3,7 @@ from datetime import datetime
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
+from django.utils.html import format_html
 
 
 class CustomUser(AbstractUser):
@@ -20,7 +21,7 @@ class Appointment(models.Model):
     date = models.DateField('Datum', help_text='Datum des Termins', default=datetime.now)
     start_time = models.TimeField('Beginn', help_text='Beginn des Termins', default=datetime.now)
     end_time = models.TimeField('Ende', help_text='Ende des Termins', default=datetime.now)
-    comment = models.CharField('Kommentar', max_length=256, help_text='Freies Kommentar. Gib hier alles ein, was zu diesem Termin wichtig ist.', default='', blank=True)
+    comment = models.CharField('Kommentar', max_length=256, help_text='Freier Kommentar. Gib hier alles ein, was zu diesem Termin wichtig ist.', default='', blank=True)
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     private = models.BooleanField('Privat', default=True, help_text='Private Termine kannst nur du sehen, andere Termine sehen alle Nutzer.')
 
@@ -34,6 +35,6 @@ class Appointment(models.Model):
     @property
     def get_html_url(self):
         url = reverse('appointment_edit', args=(self.id,))
-        return f'<a href="{url}"> {self.title} </a>'
+        return format_html('<a href="{des}"> {} </a>', url, self.title)
 
 

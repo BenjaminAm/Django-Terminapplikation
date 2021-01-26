@@ -10,6 +10,8 @@ from .models import *
 from .utils import Calendar
 from calendar import monthrange
 from django.utils.safestring import mark_safe
+from django.db.models.expressions import RawSQL
+from django.db import connection
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -31,10 +33,41 @@ def loginView(request):
             return redirect('login')
 
 
+@require_http_methods(["GET"])
 def logoutView(request):
     logout(request)
+    # id = 3
+    # sql = RawSQL('select x from y where id = %s', id)
+    # Appointment.objects.raw("select x from y where id = %s", [id])
+    # with connection.cursor() as cursor:
+    #     cursor.execute("UPDATE bar SET foo = 1 WHERE baz = %s", [id])
+    #     cursor.execute("SELECT foo FROM bar WHERE baz = %s", [id])
+    #     row = cursor.fetchone()
     # Redirect to a success page.
     return redirect("/")
+
+
+@require_http_methods(["GET", "POST"])
+def appointmentView(request, appointment_id=None):
+    if appointment_id:
+        # if user edits a form
+        instance = get_object_or_404(Appointment, pk=appointment_id)
+    else:
+        # if user creates a new form
+        instance = Appointment(owner=request.user)
+    form = AppointmentForm(request.POST or None, instance=instance)
+    # if user saves the form
+    if request.POST and 'save' in request.POST and form.is_valid():
+        if request.user == instance.owner:
+            form.save()
+        return HttpResponseRedirect(reverse('calendar'))
+    # if user presses the delete button
+    if request.POST and 'delete' in request.POST:
+        if appointment_id:
+            Appointment.objects.filter(pk=appointment_id).delete()
+            return HttpResponseRedirect(reverse('calendar'))
+
+    return render(request, 'appointment.html', {'form': form})
 
 
 class CalendarView(generic.ListView):
@@ -53,7 +86,7 @@ class CalendarView(generic.ListView):
 
         # Call the formatmonth method, which returns our calendar as a table
         html_cal = cal.formatmonth(withyear=True, currentuser=self.request.user)
-        context['calendar'] = format_html(html_cal)
+        context['calendar'] = mark_safe(html_cal)
 
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
@@ -82,23 +115,3 @@ def next_month(d):
     return month
 
 
-def appointment(request, appointment_id=None):
-    if appointment_id:
-        # if user edits a form
-        instance = get_object_or_404(Appointment, pk=appointment_id)
-    else:
-        # if user creates a new form
-        instance = Appointment(owner=request.user)
-    form = AppointmentForm(request.POST or None, instance=instance)
-    # if user saves the form
-    if request.POST and 'save' in request.POST and form.is_valid():
-        if request.user == instance.owner:
-            form.save()
-        return HttpResponseRedirect(reverse('calendar'))
-    # if user presses the delete button
-    if request.POST and 'delete' in request.POST:
-        if appointment_id:
-            Appointment.objects.filter(pk=appointment_id).delete()
-            return HttpResponseRedirect(reverse('calendar'))
-
-    return render(request, 'appointment.html', {'form': form})
